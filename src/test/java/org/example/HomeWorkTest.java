@@ -14,6 +14,7 @@ import static java.util.Arrays.asList;
 import static org.example.Action.destroy;
 import static org.example.Action.look;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
 class HomeWorkTest {
 
@@ -28,7 +29,7 @@ class HomeWorkTest {
 
     @Test
     void checkSecond(){
-        assertEquals(asList("3 1 5 2 4".split(" ")), homeWork.getLeaveOrder(5, 3));
+        assertIterableEquals(Arrays.asList(3, 1, 5, 2, 4), homeWork.getLeaveOrder(5, 3));
     }
 
 

@@ -1,7 +1,9 @@
 package org.example;
 
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 
 public class HomeWork {
 
@@ -11,9 +13,29 @@ public class HomeWork {
      * <a href="https://acm.timus.ru/problem.aspx?space=1&num=1439">https://acm.timus.ru/problem.aspx?space=1&num=1439</a>
      */
     public List<Integer> getOriginalDoorNumbers(int maxDoors, List<Action> actionList) {
-        return null;
+        TreeSet<Integer> doors = new TreeSet<>();
+        for (int i = 1; i <= maxDoors; i++) {
+            doors.add(i);
+        }
+    
+        List<Integer> result = new ArrayList<>();
+        for (Action action : actionList) {
+            if (action.isLook()) {
+                Integer door = doors.ceiling(action.getDoorNumber());
+                if (door == null) {
+                    throw new IllegalStateException("No available doors for action: " + action);
+                }
+                result.add(door);
+            } else {
+                Integer door = doors.ceiling(action.getDoorNumber());
+                if (door != null) {
+                    doors.remove(door);
+                }
+            }
+        }
+        return result;
     }
-
+    
     /**
      * <h1>Задание 2.</h1>
      * Решить задачу <br/>
@@ -28,7 +50,20 @@ public class HomeWork {
      * _ <b>4</b> => 4
      */
     public List<Integer> getLeaveOrder(int maxUnits, int leaveInterval) {
-        return null;
+        List<Integer> units = new ArrayList<>();
+        for (int i = 1; i <= maxUnits; i++) {
+            units.add(i);
+        }
+    
+        List<Integer> result = new ArrayList<>();
+        int currentIndex = 0;
+    
+        while (!units.isEmpty()) {
+            currentIndex = (currentIndex + leaveInterval - 1) % units.size();
+            result.add(units.remove(currentIndex));
+        }
+    
+        return result;
     }
 
 }
